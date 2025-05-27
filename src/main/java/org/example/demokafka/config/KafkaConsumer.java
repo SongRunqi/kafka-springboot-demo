@@ -5,16 +5,16 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyBean {
+public class KafkaConsumer {
 
 	private final KafkaTemplate<String, String> kafkaTemplate;
 
-	public MyBean(KafkaTemplate<String, String> kafkaTemplate) {
+	public KafkaConsumer(KafkaTemplate<String, String> kafkaTemplate) {
 		this.kafkaTemplate = kafkaTemplate;
 	}
 
 	public void someMethod() {
-		this.kafkaTemplate.send("someTopic", "Hello");
+		this.kafkaTemplate.send("someTopic","mykey", "Hello");
 	}
 	int count = 0;
 
@@ -22,7 +22,7 @@ public class MyBean {
 	public void processMessage(String content) {
 		System.out.println("content = " + content);
 		if (count++ < 1000) {
-			kafkaTemplate.send("someTopic", content);
+			someMethod();
 		}
 
 	}
